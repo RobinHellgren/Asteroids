@@ -5,11 +5,15 @@
 class Player : public GameObject{
 
 public:
-	Player(sf::Texture* texture);
+	Player(Game* mGamePointer);
 	~Player();
-	void movement();
-	void update(sf::RenderWindow* window);
-	void spawn(sf::RenderWindow* window);
+	void movement(Game* gamePointer);
+	void update();
+	void spawn();
 
 };
+namespace {
+	int PLAYER_FOWARD_SPEED = 350;
+	int PLAYER_ROTATION_SPEED = 250;
+}
 

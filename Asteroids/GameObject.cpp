@@ -15,7 +15,7 @@ sf::Sprite* GameObject::getMSprite() {
 void setMSprite(sf::Sprite sprite) {
 	
 }
-void GameObject::update(sf::RenderWindow* window) {
+void GameObject::update(sf::RenderWindow* window, float deltaTime, sf::Texture* texture) {
 	std::cout << "Fel update kördes" << std::endl;
 }
 void GameObject::spawn(sf::RenderWindow* window) {

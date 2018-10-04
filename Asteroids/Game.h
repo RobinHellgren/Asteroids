@@ -11,13 +11,14 @@ public:
 	~Game();
 	void run();
 private:
-
+	float mDeltaTime;
 	typedef std::vector<GameObject*> GameObjectList;
 	GameObjectList* mGameObjects;
 	sf::Texture* mGameTextures;
 	sf::RenderWindow* mWindow;
 	bool mGameIsntOver;
 	Game* mGamePointer;
+	sf::Clock* mGameClock;
 };
 namespace config{
 	const sf::VideoMode GAME_RESOLUTION = sf::VideoMode(800, 600);

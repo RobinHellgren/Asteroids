@@ -1,9 +1,10 @@
 #include "Asteroid.h"
+#include "Game.h"
 
-
-Asteroid::Asteroid(sf::Texture* texture){
+Asteroid::Asteroid(Game* mGamePointer){
+	mGame = mGamePointer;
 	mSprite = new sf::Sprite;
-	mSprite->setTexture(*texture);
+	mSprite->setTexture(*mGame->getGameTextures());
 	std::random_device device;
 	mRandomGen = std::mt19937(device());
 	std::uniform_int_distribution<int> destI(1, 4);
@@ -13,7 +14,7 @@ Asteroid::Asteroid(sf::Texture* texture){
 	int textureSelector = destI(mRandomGen);
 	int spawnSelector = destI(mRandomGen);
 
-	std::cout << textureSelector << " " << spawnSelector << std::endl;
+	//std::cout << textureSelector << " " << spawnSelector << std::endl;
 	switch (textureSelector){
 	case 1:
 		mSprite->setTextureRect(sf::IntRect(20, 63, 23, 16));
@@ -67,13 +68,13 @@ Asteroid::Asteroid(sf::Texture* texture){
 Asteroid::~Asteroid(){
 	delete mSprite;
 }
-void Asteroid::update(sf::RenderWindow* window, float deltaTime, sf::Texture* texture) {
-	mSprite->move(mAsteroidMovement* deltaTime * 15.0f);
+void Asteroid::update() {
+	mSprite->move(mAsteroidMovement* mGame->getDeltaTime() * 15.0f);
 	mSprite->rotate(mAsteroidRotation);
-	window->draw(*mSprite);
+	mGame->getWindow()->draw(*mSprite);
 	//std::cout << "Asteroid updated" << std::endl;
 
 }
-void Asteroid::spawn(sf::RenderWindow* window) {
-	window->draw(*mSprite);
+void Asteroid::spawn() {
+	mGame->getWindow()->draw(*mSprite);
 }

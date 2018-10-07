@@ -10,11 +10,11 @@ public:
 	GameObject();
 	~GameObject();
 
-	virtual void spawn(sf::RenderWindow* window);
-	virtual void update(sf::RenderWindow* window, float deltaTime, sf::Texture* texture);
+	virtual void spawn() = 0;
+	virtual void update()= 0;
 	sf::Sprite* getMSprite();
 
-	Game mGame;
+	Game* mGame;
 	sf::Sprite* mSprite;
 
 };

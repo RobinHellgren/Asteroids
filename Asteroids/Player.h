@@ -7,9 +7,9 @@ class Player : public GameObject{
 public:
 	Player(Game* mGamePointer);
 	~Player();
-	void movement(Game* gamePointer);
-	void update();
-	void spawn();
+	void movement();
+	void update() override;
+	void spawn() override;
 
 };
 namespace {

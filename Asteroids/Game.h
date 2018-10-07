@@ -4,12 +4,16 @@
 #include "GameObject.h"
 #include "Asteroid.h"
 #include "Player.h"
+#include "AsteroidHandler.h"
 #include "SFML/Graphics.hpp"
 class Game{
 public:
 	Game();
 	~Game();
 	void run();
+	float getDeltaTime();
+	sf::Texture* getGameTextures();
+	sf::RenderWindow* getWindow();
 private:
 	float mDeltaTime;
 	typedef std::vector<GameObject*> GameObjectList;
@@ -19,6 +23,7 @@ private:
 	bool mGameIsntOver;
 	Game* mGamePointer;
 	sf::Clock* mGameClock;
+	AsteroidHandler* mAsteroidHandler;
 };
 namespace config{
 	const sf::VideoMode GAME_RESOLUTION = sf::VideoMode(800, 600);

@@ -19,18 +19,22 @@ Asteroid::Asteroid(Game* mGamePointer){
 	case 1:
 		mSprite->setTextureRect(sf::IntRect(20, 63, 23, 16));
 		mSprite->setOrigin(11, 8);
+		radius = 4;
 		break;
 	case 2:
 		mSprite->setTextureRect(sf::IntRect(14, 93, 33, 31));
 		mSprite->setOrigin(16, 15);
+		radius = 7;
 		break;
 	case 3: 
 		mSprite->setTextureRect(sf::IntRect(12, 140, 37, 30));
 		mSprite->setOrigin(18, 15);
+		radius = 7;
 		break;
 	case 4:
 		mSprite->setTextureRect(sf::IntRect(3, 188, 60, 60));
 		mSprite->setOrigin(30, 30);
+		radius = 14;
 		break;
 	default:
 		break;
@@ -60,6 +64,7 @@ Asteroid::Asteroid(Game* mGamePointer){
 		break;
 	}
 	mAsteroidRotation = destAngle(mRandomGen);
+	mType = ObjectType::ASTEROID;
 
 
 }

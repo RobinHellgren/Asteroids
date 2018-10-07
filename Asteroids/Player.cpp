@@ -10,7 +10,8 @@ Player::Player(Game* mGamePointer){
 	mSprite->setTextureRect(sf::IntRect(16, 0, 32, 34));
 	mSprite->setPosition(400, 300);
 	mSprite->setOrigin(16, 16);
-	//std::cout << typeid(this).name << std::endl;
+	mType = ObjectType::PLAYER;
+	radius = 13;
 }
 
 

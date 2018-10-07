@@ -7,17 +7,20 @@
 #include "AsteroidHandler.h"
 #include "SFML/Graphics.hpp"
 class Game{
+	typedef std::vector<GameObject*> GameObjectList;
 public:
 	Game();
 	~Game();
 	void run();
 	float getDeltaTime();
+	void getGameObjectList();
 	sf::Texture* getGameTextures();
 	sf::RenderWindow* getWindow();
+	GameObjectList* mGameObjects;
 private:
 	float mDeltaTime;
-	typedef std::vector<GameObject*> GameObjectList;
-	GameObjectList* mGameObjects;
+
+	
 	sf::Texture* mGameTextures;
 	sf::RenderWindow* mWindow;
 	bool mGameIsntOver;

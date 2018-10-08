@@ -10,7 +10,7 @@ public:
 	void movement();
 	void update() override;
 	void spawn() override;
-
+	void colide(GameObject* objectColidedWith)override;
 };
 namespace {
 	int PLAYER_FOWARD_SPEED = 350;

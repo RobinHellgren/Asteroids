@@ -11,8 +11,7 @@ public:
 	~Asteroid();
 	void update();
 	void spawn();
-	void movement();
-	static void asteroidSpawner();
+	void colide(GameObject* objectColidedWith) override;
 private:
 	std::string mOriginPoint;
 	std::mt19937 mRandomGen;

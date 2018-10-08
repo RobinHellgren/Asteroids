@@ -13,28 +13,29 @@ Asteroid::Asteroid(Game* mGamePointer){
 	std::uniform_int_distribution<int> destAngle(-5, 5);
 	int textureSelector = destI(mRandomGen);
 	int spawnSelector = destI(mRandomGen);
+	mMarkedForDeletion = false;
 
 	//std::cout << textureSelector << " " << spawnSelector << std::endl;
 	switch (textureSelector){
 	case 1:
 		mSprite->setTextureRect(sf::IntRect(20, 63, 23, 16));
 		mSprite->setOrigin(11, 8);
-		radius = 4;
+		radius = 5;
 		break;
 	case 2:
 		mSprite->setTextureRect(sf::IntRect(14, 93, 33, 31));
 		mSprite->setOrigin(16, 15);
-		radius = 7;
+		radius = 8;
 		break;
 	case 3: 
 		mSprite->setTextureRect(sf::IntRect(12, 140, 37, 30));
 		mSprite->setOrigin(18, 15);
-		radius = 7;
+		radius = 9;
 		break;
 	case 4:
 		mSprite->setTextureRect(sf::IntRect(3, 188, 60, 60));
 		mSprite->setOrigin(30, 30);
-		radius = 14;
+		radius = 17;
 		break;
 	default:
 		break;
@@ -82,4 +83,10 @@ void Asteroid::update() {
 }
 void Asteroid::spawn() {
 	mGame->getWindow()->draw(*mSprite);
+}
+
+void Asteroid::colide(GameObject * objectColidedWith) {
+	if (objectColidedWith->mType == ObjectType::ASTEROID) {
+		mMarkedForDeletion = true;
+	}
 }

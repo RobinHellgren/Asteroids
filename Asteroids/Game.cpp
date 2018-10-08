@@ -8,6 +8,7 @@ Game::Game(){
 	}
 	mGameObjects = new GameObjectList;
 	mGameObjects->push_back(new Player(this));
+	mGameObjects->push_back(new Coin(this));
 	//mGameObjects->push_back(new Asteroid(mGameTextures));
 	mGameClock = new sf::Clock;
 	mAsteroidHandler = new AsteroidHandler(this);
@@ -57,10 +58,22 @@ void Game::run() {
 float Game::getDeltaTime() {
 	return mDeltaTime;
 }
+void Game::setGameIsntOver(bool newValue) {
+	mGameIsntOver = newValue;
+}
 sf::Texture* Game::getGameTextures() {
 	return mGameTextures;
 }
 sf::RenderWindow* Game::getWindow() {
 	return mWindow;
+}
+
+int Game::getLevel()
+{
+	return mLevel;
+}
+
+void Game::increaseLevel(){
+	mLevel++;
 }
 

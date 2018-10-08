@@ -18,10 +18,10 @@ AsteroidHandler::~AsteroidHandler(){
 void AsteroidHandler::spawnAsteroids() {
 	mAsteroidSpawnClock += mGame->getDeltaTime();
 	//std::cout << mAsteroidSpawnClock << std::endl;
-	while (mAsteroidAmount < BASE_NUMBER_OF_ASTEROIDS && mAsteroidSpawnClock > 1.5f){
+	while (mAsteroidAmount < BASE_NUMBER_OF_ASTEROIDS +(ASTEROID_SPAWN_DELTA * mGame->getLevel()) && mAsteroidSpawnClock > 0.5f){
 		mGame->mGameObjects->push_back(new Asteroid(mGame));
 		mAsteroidAmount++;
-		//std::cout << "Asteroid spawned" << std::endl;
+		//std::cout << mAsteroidAmount << std::endl;
 		mAsteroidSpawnClock = 0;
 	};
 }
@@ -30,29 +30,33 @@ void AsteroidHandler::pruneAsteroids() {
 	for (unsigned int i = 0; i < mGame->mGameObjects->size(); i++) {
 		if (mGame->mGameObjects->at(i)->getMSprite()->getPosition().y < 0) {
 			asteroidTrashBin->push_back(mGame->mGameObjects->at(i));
-			std::cout << "Asteroid trashed" << std::endl;
+			//std::cout << "Asteroid trashed y<0" << std::endl;
 			mAsteroidAmount--;
 		}
 		else if (mGame->mGameObjects->at(i)->getMSprite()->getPosition().y > 600) {
 			asteroidTrashBin->push_back(mGame->mGameObjects->at(i));
-			std::cout << "Asteroid trashed" << std::endl;
+			//std::cout << "Asteroid trashed y>600" << std::endl;
 			mAsteroidAmount--;
 		}
 		else if (mGame->mGameObjects->at(i)->getMSprite()->getPosition().x < 0) {
 			asteroidTrashBin->push_back(mGame->mGameObjects->at(i));
-			std::cout << "Asteroid trashed" << std::endl;
+			//std::cout << "Asteroid trashed x<0" << std::endl;
 			mAsteroidAmount--;
 		}
 		else if (mGame->mGameObjects->at(i)->getMSprite()->getPosition().x > 800) {
 			asteroidTrashBin->push_back(mGame->mGameObjects->at(i));
-			std::cout << "Asteroid trashed" << std::endl;
+			//std::cout << "Asteroid trashed x>800" << std::endl;
+			mAsteroidAmount--;
+		}
+		else if (mGame->mGameObjects->at(i)->mMarkedForDeletion == true) {
+			asteroidTrashBin->push_back(mGame->mGameObjects->at(i));
 			mAsteroidAmount--;
 		}
 		else {
 			remainingAsteroids->push_back(mGame->mGameObjects->at(i));
 			//std::cout << "Asteroid saved" << std::endl;
 		}
-		mAsteroidAmount -= asteroidTrashBin->size();
+		
 		for (unsigned int i = 0; i < asteroidTrashBin->size(); i++) {
 			delete asteroidTrashBin->at(i);
 		}
@@ -68,12 +72,12 @@ void AsteroidHandler::reformGameObjectList() {
 void AsteroidHandler::checkForCollisions() {
 	for (unsigned int i = 0; i < mGame->mGameObjects->size(); i++){
 		for (unsigned int j = i + 1; j < mGame->mGameObjects->size(); j++ ) {
-			if (getDistanceBetweenObjects(mGame->mGameObjects->at(i), mGame->mGameObjects->at(i + 1)) <= mGame->mGameObjects->at(i)->radius + mGame->mGameObjects->at(j)->radius +3) {
+			if (getDistanceBetweenObjects(mGame->mGameObjects->at(i), mGame->mGameObjects->at(j)) <= mGame->mGameObjects->at(i)->radius + mGame->mGameObjects->at(j)->radius ) {
 				//TODO Collision logic function with object 2 as parameter
-				std::cout << "COLLISION!" << std::endl;
+				//std::cout << "COLLISION! "  << std::endl;
+				mGame->mGameObjects->at(i)->colide(mGame->mGameObjects->at(j));
+				mGame->mGameObjects->at(j)->colide(mGame->mGameObjects->at(i));
 			}
-
-
 		}
 
 	}

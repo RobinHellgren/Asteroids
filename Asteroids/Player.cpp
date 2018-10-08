@@ -11,7 +11,7 @@ Player::Player(Game* mGamePointer){
 	mSprite->setPosition(400, 300);
 	mSprite->setOrigin(16, 16);
 	mType = ObjectType::PLAYER;
-	radius = 13;
+	radius = 16;
 }
 
 
@@ -53,4 +53,13 @@ void  Player::update() {
 void Player::spawn() {
 	mGame->getWindow()->draw(*mSprite);
 	//std::cout << "Player spawned" << std::endl;
+}
+
+void Player::colide(GameObject* objectColidedWith){
+	if (objectColidedWith->mType == ObjectType::ASTEROID) {
+		mGame->setGameIsntOver(false);
+	}
+	if (objectColidedWith->mType == ObjectType::COIN) {
+
+	}
 }

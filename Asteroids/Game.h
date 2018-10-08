@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Asteroid.h"
 #include "Player.h"
+#include "Coin.h"
 #include "AsteroidHandler.h"
 #include "SFML/Graphics.hpp"
 class Game{
@@ -13,13 +14,15 @@ public:
 	~Game();
 	void run();
 	float getDeltaTime();
-	void getGameObjectList();
 	sf::Texture* getGameTextures();
 	sf::RenderWindow* getWindow();
 	GameObjectList* mGameObjects;
+	int getLevel();
+	void increaseLevel();
+	void setGameIsntOver(bool newValue);
 private:
 	float mDeltaTime;
-
+	int mLevel;
 	
 	sf::Texture* mGameTextures;
 	sf::RenderWindow* mWindow;

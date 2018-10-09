@@ -9,8 +9,8 @@ class Asteroid :
 public:
 	Asteroid(Game* mGamePointer);
 	~Asteroid();
-	void update();
-	void spawn();
+	void update()override;
+	void spawn()override;
 	void colide(GameObject* objectColidedWith) override;
 private:
 	std::string mOriginPoint;

@@ -89,4 +89,7 @@ void Asteroid::colide(GameObject * objectColidedWith) {
 	if (objectColidedWith->mType == ObjectType::ASTEROID) {
 		mMarkedForDeletion = true;
 	}
+	if (objectColidedWith->mType == ObjectType::COIN) {
+		mAsteroidMovement = -mAsteroidMovement;
+	}
 }

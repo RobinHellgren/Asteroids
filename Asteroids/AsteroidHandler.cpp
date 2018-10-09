@@ -18,7 +18,7 @@ AsteroidHandler::~AsteroidHandler(){
 void AsteroidHandler::spawnAsteroids() {
 	mAsteroidSpawnClock += mGame->getDeltaTime();
 	//std::cout << mAsteroidSpawnClock << std::endl;
-	while (mAsteroidAmount < BASE_NUMBER_OF_ASTEROIDS +(ASTEROID_SPAWN_DELTA * mGame->getLevel()) && mAsteroidSpawnClock > 0.5f){
+	while (mAsteroidAmount < BASE_NUMBER_OF_ASTEROIDS +(ASTEROID_SPAWN_DELTA * mGame->getLevel()) && mAsteroidSpawnClock > 0.1f){
 		mGame->mGameObjects->push_back(new Asteroid(mGame));
 		mAsteroidAmount++;
 		//std::cout << mAsteroidAmount << std::endl;

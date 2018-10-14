@@ -9,11 +9,12 @@ Game::Game(){
 	mGameObjects = new GameObjectList;
 	mGameObjects->push_back(new Player(this));
 	mGameObjects->push_back(new Coin(this));
-	//mGameObjects->push_back(new Asteroid(mGameTextures));
 	mGameClock = new sf::Clock;
-	mAsteroidHandler = new AsteroidHandler(this);
+	mGameObjectHandler = new GameObjectHandler(this);
 	mWindow = new sf::RenderWindow(config::GAME_RESOLUTION, config::WINDOW_TITLE);
 	mWindow->setFramerateLimit(config::FRAMERATE_LIMIT);
+
+	mMenu = new MenuManager(this);
 	
 	mGameIsntOver = true;
 
@@ -21,7 +22,6 @@ Game::Game(){
 
 	for (unsigned int i = 0; i < mGameObjects->size(); i++) {
 		mGameObjects->at(i)->spawn();
-		//std::cout << typeid(*mGameObjects->at(i)).name() << std::endl;
 	}
 }
 
@@ -30,7 +30,6 @@ Game::~Game(){
 }
 void Game::run() {
 	while (mWindow->isOpen() && mGameIsntOver) {
-		//mGameObjects->push_back(new Asteroid(this));
 		mDeltaTime = mGameClock->restart().asSeconds();
 		sf::Event event;
 		while (mWindow->pollEvent(event)) {
@@ -43,12 +42,11 @@ void Game::run() {
 		mWindow->clear(config::BACKGROUND_COLOR);
 		for (unsigned int i = 0; i < mGameObjects->size(); i++) {
 			mGameObjects->at(i)->update();
-			//std::cout << typeid(*mGameObjects->at(i)).name() << std::endl;	
 		}
-		mAsteroidHandler->checkForCollisions();
-		mAsteroidHandler->spawnAsteroids();
-		mAsteroidHandler->pruneAsteroids();
-		mAsteroidHandler->reformGameObjectList();
+		mGameObjectHandler->checkForCollisions();
+		//mGameObjectHandler->spawnAsteroids();
+		mGameObjectHandler->pruneGameObjects();
+		mGameObjectHandler->reformGameObjectList();
 
 		mWindow->display();
 
@@ -71,6 +69,11 @@ sf::RenderWindow* Game::getWindow() {
 int Game::getLevel()
 {
 	return mLevel;
+}
+
+MenuManager* Game::getMenu()
+{
+	return mMenu;
 }
 
 void Game::increaseLevel(){

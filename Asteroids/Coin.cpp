@@ -20,7 +20,6 @@ Coin::~Coin()
 }
 
 void Coin::update(){
-	//std::cout << mSpawnDelay << std::endl;
 	if (!mInPlay) {
 		mSpawnDelay += mGame->getDeltaTime();
 	}

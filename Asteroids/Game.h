@@ -5,7 +5,8 @@
 #include "Asteroid.h"
 #include "Player.h"
 #include "Coin.h"
-#include "AsteroidHandler.h"
+#include "GameObjectHandler.h"
+#include "MenuManager.h"
 #include "SFML/Graphics.hpp"
 class Game{
 	typedef std::vector<GameObject*> GameObjectList;
@@ -18,18 +19,20 @@ public:
 	sf::RenderWindow* getWindow();
 	GameObjectList* mGameObjects;
 	int getLevel();
+	MenuManager* getMenu();
 	void increaseLevel();
 	void setGameIsntOver(bool newValue);
 private:
 	float mDeltaTime;
 	int mLevel;
 	
+	MenuManager* mMenu;
 	sf::Texture* mGameTextures;
 	sf::RenderWindow* mWindow;
 	bool mGameIsntOver;
 	Game* mGamePointer;
 	sf::Clock* mGameClock;
-	AsteroidHandler* mAsteroidHandler;
+	GameObjectHandler* mGameObjectHandler;
 };
 namespace config{
 	const sf::VideoMode GAME_RESOLUTION = sf::VideoMode(800, 600);

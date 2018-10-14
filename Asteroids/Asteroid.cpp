@@ -15,7 +15,7 @@ Asteroid::Asteroid(Game* mGamePointer){
 	int spawnSelector = destI(mRandomGen);
 	mMarkedForDeletion = false;
 
-	//std::cout << textureSelector << " " << spawnSelector << std::endl;
+	
 	switch (textureSelector){
 	case 1:
 		mSprite->setTextureRect(sf::IntRect(20, 63, 23, 16));
@@ -42,22 +42,18 @@ Asteroid::Asteroid(Game* mGamePointer){
 	}
 	switch (spawnSelector) {
 	case 1:
-		mOriginPoint = "Top";
 		mSprite->setPosition(destPosX(mRandomGen), 10);
 		mAsteroidMovement = sf::Vector2f(destAngle(mRandomGen), 5.0f);
 		break;
 	case 2:
-		mOriginPoint = "Bottom";
 		mSprite->setPosition(destPosX(mRandomGen),600 );
 		mAsteroidMovement = sf::Vector2f(destAngle(mRandomGen), -5.0f);
 		break;
 	case 3:
-		mOriginPoint = "Left";
 		mSprite->setPosition(10, destPosY(mRandomGen));
 		mAsteroidMovement = sf::Vector2f(5.0f, destAngle(mRandomGen));
 		break;
 	case 4:
-		mOriginPoint = "Right";
 		mSprite->setPosition(800, destPosY(mRandomGen));
 		mAsteroidMovement = sf::Vector2f(-5.0f, destAngle(mRandomGen));
 		break;
@@ -84,12 +80,8 @@ void Asteroid::update() {
 void Asteroid::spawn() {
 	mGame->getWindow()->draw(*mSprite);
 }
-
 void Asteroid::colide(GameObject * objectColidedWith) {
 	if (objectColidedWith->mType == ObjectType::ASTEROID) {
 		mMarkedForDeletion = true;
-	}
-	if (objectColidedWith->mType == ObjectType::COIN) {
-		mAsteroidMovement = -mAsteroidMovement;
 	}
 }

@@ -30,16 +30,16 @@ void Player::movement() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		float x = sinf(getMSprite()->getRotation() * 3.14 / 180) * PLAYER_FOWARD_SPEED;
 		float y = -cosf(getMSprite()->getRotation() * 3.14 / 180) * PLAYER_FOWARD_SPEED;
-		if (getMSprite()->getPosition().x > (800 - 15)) {
+		if (getMSprite()->getPosition().x > (800 - radius)) {
 			x -= PLAYER_FOWARD_SPEED;
 		}
-		if (getMSprite()->getPosition().x < (0 + 15)) {
+		if (getMSprite()->getPosition().x < (0 + radius)) {
 			x += PLAYER_FOWARD_SPEED;
 		}
-		if (getMSprite()->getPosition().y > (600 - 15)) {
+		if (getMSprite()->getPosition().y > (600 - radius)) {
 			y-= PLAYER_FOWARD_SPEED;
 		}
-		if (getMSprite()->getPosition().y < 0 + 15) {
+		if (getMSprite()->getPosition().y < 0 + radius) {
 			y+= PLAYER_FOWARD_SPEED;
 		}
 		getMSprite()->move(x * mGame->getDeltaTime(), y * mGame->getDeltaTime());
@@ -48,11 +48,9 @@ void Player::movement() {
 void  Player::update() {
 	movement();
 	mGame->getWindow()->draw(*getMSprite());
-	//std::cout << "Player updated" << std::endl;
 }
 void Player::spawn() {
 	mGame->getWindow()->draw(*mSprite);
-	//std::cout << "Player spawned" << std::endl;
 }
 
 void Player::colide(GameObject* objectColidedWith){

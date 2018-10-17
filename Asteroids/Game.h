@@ -25,6 +25,7 @@ public:
 private:
 	float mDeltaTime;
 	int mLevel;
+	int frameCounter; 
 	
 	MenuManager* mMenu;
 	sf::Texture* mGameTextures;

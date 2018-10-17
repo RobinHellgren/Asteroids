@@ -56,6 +56,7 @@ void MainMenu::run(){
 					return;
 				}
 			}
+			mMenu->mInputDelay += mMenu->getInputClock()->restart().asSeconds();
 			mGame->getWindow()->clear(sf::Color::Black);
 			menuControlls();
 			mGame->getWindow()->draw(mTitle);
@@ -71,46 +72,56 @@ void MainMenu::run(){
 	}
 
 void MainMenu::menuControlls() {
-	std::cout << mMenu->getKeyIsPressed() << std::endl;
+	std::cout << mMenu->mInputDelay << std::endl;
 	sf::Event event;
-	while (mGame->getWindow()->pollEvent(event)) {
-		if (event.type == sf::Event::KeyPressed) {
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && mCurrentMenuItem == MenuItem::PLAY && !mMenu->getKeyIsPressed()) {
+	while (mGame->getWindow()->pollEvent(event) && mGame->getWindow()->isOpen()) {
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && mCurrentMenuItem == MenuItem::PLAY && mMenu->getInputDelayed()) {
 				mCurrentMenuItem = MenuItem::INTRUCTIONS;
 				mMenuPointer.setPosition(280, 330);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && mCurrentMenuItem == MenuItem::INTRUCTIONS && !mMenu->getKeyIsPressed()) {
+				mMenu->mInputDelay = 0.0f;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && mCurrentMenuItem == MenuItem::INTRUCTIONS && mMenu->getInputDelayed()) {
 				mCurrentMenuItem = MenuItem::QUIT;
 				mMenuPointer.setPosition(280, 360);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && mCurrentMenuItem == MenuItem::QUIT && !mMenu->getKeyIsPressed()) {
+				mMenu->mInputDelay = 0.0f;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && mCurrentMenuItem == MenuItem::QUIT && mMenu->getInputDelayed()) {
 				mCurrentMenuItem = MenuItem::INTRUCTIONS;
 				mMenuPointer.setPosition(280, 330);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && mCurrentMenuItem == MenuItem::INTRUCTIONS && !mMenu->getKeyIsPressed()) {
+				mMenu->mInputDelay = 0.0f;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && mCurrentMenuItem == MenuItem::INTRUCTIONS && mMenu->getInputDelayed()) {
 				mCurrentMenuItem = MenuItem::PLAY;
 				mMenuPointer.setPosition(280, 300);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !mMenu->getKeyIsPressed()) {
-				if (mCurrentMenuItem == MenuItem::PLAY) {
+				mMenu->mInputDelay = 0.0f;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && mMenu->getInputDelayed()) {
+			if (mCurrentMenuItem == MenuItem::PLAY) {
 					mMainMenuRunning = false;
 					mGame->getWindow()->clear();
 					mGame->run();
-				}
-				if (mCurrentMenuItem == MenuItem::QUIT) {
+					mMenu->mInputDelay = 0.0f;
+			}
+			if (mCurrentMenuItem == MenuItem::QUIT) {
 					mMainMenuRunning = false;
-				}
-				if (mCurrentMenuItem == MenuItem::INTRUCTIONS) {
+					mMenu->mInputDelay = 0.0f;
+			}
+			if (mCurrentMenuItem == MenuItem::INTRUCTIONS) {
 					mMainMenuRunning = false;
 					mMenu->runInstructionPage();
+					mMenu->mInputDelay = 0.0f;
 
-				}
 			}
-			mMenu->setKeyIsPressed(true);
 		}
-		else if (event.type == sf::Event::KeyReleased) {
-			mMenu->setKeyIsPressed(false);
+		if (sf::Keyboard::isKeyPressed() {
+			mMenu->setInputDelayed(true);
 		}
+		else {
+			mMenu->setInputDelayed(false);
+		}
+
+
 	}
 
 }

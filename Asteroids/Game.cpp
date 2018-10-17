@@ -29,6 +29,7 @@ Game::Game(){
 Game::~Game(){
 }
 void Game::run() {
+	frameCounter = 0;
 	while (mWindow->isOpen() && mGameIsntOver) {
 		mDeltaTime = mGameClock->restart().asSeconds();
 		sf::Event event;
@@ -39,12 +40,14 @@ void Game::run() {
 				return;
 			}
 		}
+
 		mWindow->clear(config::BACKGROUND_COLOR);
+
 		for (unsigned int i = 0; i < mGameObjects->size(); i++) {
 			mGameObjects->at(i)->update();
 		}
 		mGameObjectHandler->checkForCollisions();
-		//mGameObjectHandler->spawnAsteroids();
+		mGameObjectHandler->spawnAsteroids();
 		mGameObjectHandler->pruneGameObjects();
 		mGameObjectHandler->reformGameObjectList();
 

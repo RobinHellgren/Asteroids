@@ -12,12 +12,15 @@ public:
 	sf::Font* getBreadFont();
 	void runMainMenu();
 	void runInstructionPage();
-	bool getKeyIsPressed();
-	void setKeyIsPressed(bool state);
+	bool getInputDelayed();
+	void setInputDelayed(bool state);
+	sf::Clock* getInputClock();
+	float mInputDelay;
 private:
 	sf::Font* mTitleFont;
 	sf::Font* mBreadFont;
 	Game* mGame;
-	bool mKeyIsPressed;
+	bool mInputDelayed;
+	sf::Clock* mInputClock;
 };
 

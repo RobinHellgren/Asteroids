@@ -6,6 +6,7 @@ MenuManager::MenuManager(Game* game){
 	mGame = game;
 	mTitleFont = new sf::Font;
 	mBreadFont = new sf::Font;
+	mInputClock = new sf::Clock;
 	mTitleFont->loadFromFile("./Fonts/Championship.ttf");
 	mBreadFont->loadFromFile("./Fonts/AldotheApache.ttf");
 }
@@ -32,11 +33,16 @@ void MenuManager::runInstructionPage(){
 	instrPg.run();
 }
 
-bool MenuManager::getKeyIsPressed()
+bool MenuManager::getInputDelayed()
 {
-	return mKeyIsPressed;
+	return mInputDelayed;
 }
 
-void MenuManager::setKeyIsPressed(bool state){
-	mKeyIsPressed = state;
+void MenuManager::setInputDelayed(bool state){
+	mInputDelayed = state;
+}
+
+sf::Clock* MenuManager::getInputClock()
+{
+	return mInputClock;
 }
